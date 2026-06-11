@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code — sequence puzzle</title>
+<style>
+  :root{
+    --bg:#262624; --fg:#d6d4d1; --dim:#82807c; --orange:#d97757;
+    --blue:#6c8ec9; --yellow:#d4a72c; --purple:#b186d4; --notice:#d8a36a;
+  }
+  html,body{margin:0;background:#1a1917;}
+  body{font:14px/1.5 ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,Consolas,monospace;
+       color:var(--fg);padding:24px;}
+  .term{max-width:900px;margin:0 auto;background:var(--bg);border-radius:10px;
+        box-shadow:0 12px 40px rgba(0,0,0,.5);overflow:hidden;border:1px solid #353330;}
+  .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#1f1e1c;
+       border-bottom:1px solid #353330;}
+  .bar .dot{width:12px;height:12px;border-radius:50%}
+  .dot.r{background:#ff5f56}.dot.y{background:#ffbd2e}.dot.g{background:#27c93f}
+  .bar .title{margin-left:8px;color:var(--dim);font-size:12px}
+  pre{margin:0;padding:18px 20px;white-space:pre;overflow-x:auto;tab-size:2;}
+  .banner{color:var(--dim)}
+  .logo{color:var(--orange)}
+  .notice{color:var(--notice)} .mk-notice{color:var(--orange)}
+  .user{color:#f5f3f0;font-weight:600} .mk-user{color:var(--blue)} .cmd{color:var(--yellow)}
+  .result{color:var(--dim)} .mk-dim{color:var(--dim)}
+  .assistant{color:var(--fg)} .mk-dot{color:var(--orange);font-weight:700}
+  .meta{color:var(--purple)} .mk-meta{color:var(--purple)}
+  .recap{color:var(--dim);font-style:italic} .mk-recap{color:var(--dim)}
+  .plain{color:var(--fg)}
+  .disclaimer{max-width:900px;margin:14px auto 0;color:#6f6d6a;font-size:11px;
+              line-height:1.4;text-align:center;
+              font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+</style></head>
+<body>
+  <div class="term">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="title">claude — reasoning demo</span></div>
+    <pre><span class="banner">╭─── Claude Code v2.1.170 ─────────────────────────────────────────────────────╮</span>
+<span class="banner">│                                                    │ Tips for getting        │</span>
+<span class="banner">│                    Welcome back!                   │ started                 │</span>
+<span class="banner">│                                                    │ Run /init to create a … │</span>
+<span class="logo">│                       ▐▛███▜▌                      │ ─────────────────────── │</span>
+<span class="logo">│                      ▝▜█████▛▘                     │ What&#x27;s new              │</span>
+<span class="banner">│                        ▘▘ ▝▝                       │ Introducing Claude Fab… │</span>
+<span class="banner">│                     Fable 5 · Claude Max · ***&#x27;s   │ Fixed sessions not sav… │</span>
+<span class="banner">│   Organization                                     │ Self-hosted runner: ad… │</span>
+<span class="banner">│                ***                                 │ /release-notes for more │</span>
+<span class="banner">╰──────────────────────────────────────────────────────────────────────────────╯</span>
+<span class="plain"></span>
+<span class="notice"> <span class="mk-notice">▎</span> Fable 5 is here! Our newest model for complex, long-running work</span>
+<span class="notice"> <span class="mk-notice">▎</span> Included in your plan limits until Jun 22, then switch to usage credits to continue.</span>
+<span class="plain"></span>
+<span class="user"><span class="mk-user">❯</span> <span class="cmd">/model</span> Fable                                                                  </span>
+<span class="result">  <span class="mk-dim">⎿</span>  Set model to Fable 5 and saved as your default for new sessions</span>
+<span class="plain"></span>
+<span class="user"><span class="mk-user">❯</span> <span class="cmd">/effort</span> max                                                                   </span>
+<span class="result">  <span class="mk-dim">⎿</span>  Set effort level to max (this session only): Maximum capability with deepest</span>
+<span class="result">     reasoning. May use excessive tokens resulting in long response times or</span>
+<span class="result">     overthinking. Use sparingly for the hardest tasks.</span>
+<span class="plain"></span>
+<span class="user"><span class="mk-user">❯</span> You are not allowed to use any tool, but pure reasoning. The problem is: ?,   </span>
+<span class="user">  2026, 3332, 3387, 6312, 6344, 6679, 13625, 16992, 24351, 25022, 25097, 48492, </span>
+<span class="user">  55217, 72063, 73613, 74089, 137257, 258400, 259195, 334626, 382686, 463481,   </span>
+<span class="user">  496573, 515035, 531034, 535388, 830520, 831194, 894358, ...                   </span>
+<span class="plain"></span>
+<span class="assistant"><span class="mk-dot">●</span> The missing first term is 1291.</span>
+<span class="plain"></span>
+<span class="plain">  The rule</span>
+<span class="plain"></span>
+<span class="plain">  Each term is obtained from the previous one by adding its digits raised to the</span>
+<span class="plain">  power of their position (1st digit to the 1st power, 2nd digit squared, 3rd</span>
+<span class="plain">  digit cubed, …):</span>
+<span class="plain"></span>
+<span class="plain">  $$a_{n+1} = a_n + \sum_i d_i^{,i}$$</span>
+<span class="plain"></span>
+<span class="plain">  Checking it across the whole list:</span>
+<span class="plain"></span>
+<span class="plain">  - 2026 → 2¹ + 0² + 2³ + 6⁴ = 2 + 0 + 8 + 1296 = 1306 → 2026 + 1306 = 3332 ✓</span>
+<span class="plain">  - 3332 → 3 + 9 + 27 + 16 = 55 → 3387 ✓</span>
+<span class="plain">  - 3387 → 3 + 9 + 512 + 2401 = 2925 → 6312 ✓</span>
+<span class="plain">  - 6312 → 6 + 9 + 1 + 16 = 32 → 6344 ✓</span>
+<span class="plain">  - 74089 → 7 + 16 + 0 + 4096 + 59049 = 63168 → 137257 ✓</span>
+<span class="plain">  - 137257 → 1 + 9 + 343 + 16 + 3125 + 117649 = 121143 → 258400 ✓</span>
+<span class="plain">  - 535388 → 5 + 9 + 125 + 81 + 32768 + 262144 = 295132 → 830520 ✓</span>
+<span class="plain">  - 831194 → 8 + 9 + 1 + 1 + 59049 + 4096 = 63164 → 894358 ✓</span>
+<span class="plain"></span>
+<span class="plain">  All 28 visible transitions check out (I verified every single one).</span>
+<span class="plain"></span>
+<span class="plain">  Solving backwards</span>
+<span class="plain"></span>
+<span class="plain">  We need x with x + f(x) = 2026. Writing x = 1000a+100b+10c+d and scanning the</span>
+<span class="plain">  digit equations exhaustively gives exactly two preimages:</span>
+<span class="plain"></span>
+<span class="plain">  - 1291: 1¹ + 2² + 9³ + 1⁴ = 1 + 4 + 729 + 1 = 735, and 1291 + 735 = 2026 ✓</span>
+<span class="plain">  - 1760: 1¹ + 7² + 6³ + 0⁴ = 1 + 49 + 216 + 0 = 266, and 1760 + 266 = 2026 ✓</span>
+<span class="plain"></span>
+<span class="plain">  The ambiguity resolves by asking which one can legitimately start the</span>
+<span class="plain">  sequence. Searching for predecessors:</span>
+<span class="plain"></span>
+<span class="plain">  - 1760 has one: 1125 + (1 + 1 + 8 + 625) = 1760. So a trajectory through 1760</span>
+<span class="plain">  actually begins 1125, 1760, 2026, … — there would be two hidden terms before</span>
+<span class="plain">  2026, not one.</span>
+<span class="plain">  - 1291 has none (an exhaustive scan over all 1-, 2</span>
+<span class="plain"></span>
+<span class="assistant"><span class="mk-dot">●</span> - 1291 has none (an exhaustive scan over all 1-, 2-, 3- and 4-digit candidates</span>
+<span class="assistant">  finds no y with y + f(y) = 1291). It is a genuine seed — the trajectory</span>
+<span class="assistant">  cannot be extended any further left, so the sequence must begin there.</span>
+<span class="plain"></span>
+<span class="plain">  Since the puzzle shows exactly one term before 2026, the sequence is the</span>
+<span class="plain">  trajectory starting at its seed:</span>
+<span class="plain"></span>
+<span class="plain">  1291 → 2026 → 3332 → 3387 → 6312 → …</span>
+<span class="plain"></span>
+<span class="plain">  Answer</span>
+<span class="plain"></span>
+<span class="plain">  $$\boxed{?\ =\ 1291}$$</span>
+<span class="plain"></span>
+<span class="plain">  A couple of side notes: the increment function f (digit-position-power sum) is</span>
+<span class="plain">  the one behind &quot;disarium&quot; numbers, and amusingly f(2026) = 1306 is itself</span>
+<span class="plain">  disarium (1 + 3² + 0³ + 6⁴ = 1306). If you want to continue the sequence, the</span>
+<span class="plain">  next term after 894358 is 894358 + (8 + 81 + 64 + 81 + 3125 + 262144) =</span>
+<span class="plain">  1159861.</span>
+<span class="plain"></span>
+<span class="meta"><span class="mk-meta">✻</span> Worked for 14m 19s</span>
+<span class="plain"></span>
+<span class="recap"><span class="mk-recap">※</span> recap: The puzzle asked for the hidden first term of the sequence before 2026. It&#x27;s solved: each term adds its digits raised to their position powers, giving 1291 as the unique seed. Nothing left to do unless you want more terms. (disable recaps in /config)</span>
+<span class="plain"></span>
+<span class="user"><span class="mk-user">❯</span> How did you find the solution?                                                </span>
+<span class="plain"></span>
+<span class="assistant"><span class="mk-dot">●</span> Honestly: mostly by elimination, plus one decisive change of viewpoint. Here&#x27;s</span>
+<span class="assistant">  the actual path, including the dead ends.</span>
+<span class="plain"></span>
+<span class="plain">  1. Reading the shape of the sequence first. Before testing anything, I</span>
+<span class="plain">  extracted some structural signals:</span>
+<span class="plain"></span>
+<span class="plain">  - It&#x27;s strictly increasing with wildly irregular gaps (+32 here, +295132</span>
+<span class="plain">  there), so it was either numbers filtered by some property, or a trajectory</span>
+<span class="plain">  (&quot;each term computed from the previous one&quot;).</span>
+<span class="plain">  - The terms come in odd clusters — 3332/3387, then 6312/6344/6679, then</span>
+<span class="plain">  25022/25097, 73613/74089, 830520/831194. Tiny steps, then a huge leap.</span>
+<span class="plain">  - Roughly 6, 10, 13 terms per decade — too sparse for digit-sum-type filters,</span>
+<span class="plain">  too dense and too irregular for a single smooth formula.</span>
+<span class="plain"></span>
+<span class="plain">  2. A long graveyard of hypotheses. I tested and discarded a lot:</span>
+<span class="plain">  factorizations (no shared structure — one term is prime, others are 2×p,</span>
+<span class="plain">  5³×109...), sums of two squares (3387 ≡ 3·prime kills it), squares+cubes,</span>
+<span class="plain">  quadratic forms generally (the terms hit every residue class mod 3, 4, 8, 9,</span>
+<span class="plain">  so no form fits), digit sums, binary/base-7/8/9/12 representations,</span>
+<span class="plain">  palindromes, Keith numbers, Kaprekar, Carmichael, amicable/sociable numbers</span>
+<span class="plain">  (those tempting &quot;close pairs&quot; looked amicable-ish!), partition numbers,</span>
+<span class="plain">  Fibonacci/Lucas/Tribonacci, Cullen/Woodall primes, concatenations of</span>
+<span class="plain">  squares/primes/Fibonacci numbers, sums of consecutive squares/cubes/primes,</span>
+<span class="plain">  n·reverse(n) properties... each died on a concrete counterexample, usually</span>
+<span class="plain">  within the first three terms.</span>
+<span class="plain"></span>
+<span class="plain">  3. The pivot. After all the &quot;property of n&quot; ideas failed, I went back to the</span>
+<span class="plain">  difference list — but this time asked a different question: not &quot;what sequence</span>
+<span class="plain">  do the differences form?&quot; (they form nothing), but &quot;is each difference a </span>
+<span class="plain">  function of the term it follows?&quot; That reframing is the whole solution. The</span>
+<span class="plain">  differences are absurdly non-monotonic (+55, +2925, +32, +335, +6946...),</span>
+<span class="plain">  which is exactly what digit-dependent functions look like.</span>
+<span class="plain"></span>
+<span class="plain">  So I stared at 2026 → +1306. First guess: 2026 − 1306 = 720 = 6!, suggesting</span>
+<span class="plain">  a(n+1) = 2a(n) − 720. It works for one step and fails on the next — classic</span>
+<span class="plain">  trap. Second guess: digit powers. 2¹ + 0² + 2³ + 6⁴ = 2 + 0 + 8 + 1296 = 1306.</span>
+<span class="plain">  Hit. Then 3332: 3 + 9 + 27 + 16 = 55. Hit. Then 3387: 3 + 9 + 512 + 2401 =</span>
+<span class="plain">  2925. Three hits on three different-looking differences is no coincidence —</span>
+<span class="plain">  and it retroactively explained the clusters: a term ending in 9 takes a giant</span>
+<span class="plain">  step (9⁵ = 59049), a term full of zeros and small digits crawls (830520 →</span>
+<span class="plain">  +674). I then verified all 28 transitions by hand, because with a rule this</span>
+<span class="plain">  cute it&#x27;s easy to fool yourself with partial checks.</span>
+<span class="plain"></span>
+<span class="plain">  4. Going backwards. Solving x + f(x) = 2026 is finite work: f is bounded per</span>
+<span class="plain">  digit count, so I case-split on the digits (thousands digit 1 or 2, then scan</span>
+<span class="plain">  the hundreds digit, reducing each case to &quot;is d⁴ + d equal to this residue?&quot;).</span>
+<span class="plain">  That exhaustive scan produced exactly two preimages: 1291 (f = 735) and 1760</span>
+<span class="plain">  (f = 266).</span>
+<span class="plain"></span>
+<span class="plain">  5. Breaking the tie. The puzzle shows exactly one hidden term, so the hidden</span>
+<span class="plain">  term should be where the sequence genuinely begins. I ran the preimage search</span>
+<span class="plain">  again on both candidates: 1760 has a predecessor (1125 + 635 = 1760), so a</span>
+<span class="plain">  trajectory through 1760 really starts at 1125 and would have two terms before</span>
+<span class="plain">  2026. 1291 has no predecessor at all — no 1-, 2-, 3- or 4-digit y satisfies y</span>
+<span class="plain">  + f(y) = 1291 — making it a true seed. Only the trajectory starting at 1291</span>
+<span class="plain">  puts 2026 in the second slot. Hence 1291.</span>
+<span class="plain"></span>
+<span class="plain">  If there&#x27;s a transferable lesson in it: when a sequence resists every</span>
+<span class="plain">  &quot;intrinsic property&quot; test, switch to treating it as an orbit and regress the</span>
+<span class="plain">  increments on the previous term — and when increments jump by orders of</span>
+<span class="plain">  magnitude with no monotonicity, suspect digits, because digits are the only</span>
+<span class="plain">  &quot;feature&quot; of a number that behaves that discontinuously.</span>
+<span class="plain"></span>
+<span class="meta"><span class="mk-meta">✻</span> Sautéed for 45s</span></pre>
+  </div>
+  <p class="disclaimer">Recreated UI for illustration only. Not affiliated with,
+  authorized, or endorsed by Anthropic. &ldquo;Claude&rdquo; and &ldquo;Claude
+  Code&rdquo; are trademarks of Anthropic; shown here for reference and commentary.</p>
+</body></html>
