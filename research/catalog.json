@@ -1,0 +1,149 @@
+{
+  "title": "Artificial Integrability: shelved lines of pursuit",
+  "author": "Istvan Vona",
+  "subtitle": "Notes, calculations, and open directions",
+  "description": "Istvan Vona’s exploratory research notes in mathematical physics: free fermions in disguise, quantum circuits, and resurgence, with code, related publications, and ideas for future work.",
+  "base_url": "https://istvanvona.github.io/ai/",
+  "page_path": "research/",
+  "updated": "2026-11-13",
+  "introduction": "Here I collect exploratory research notes in mathematical physics, developed with LLMs around ideas about where to look and what to connect. These projects represent substantial computational effort, but I have not had the capacity to revise them and understand every result in depth. Even if correct, some may be too small or preliminary to justify a standalone paper—especially now that generating papers is the easy part. These notes preserve ideas and computational material for further investigation; their mathematical claims have not been independently checked and should be treated as unverified. I hope these notes will help me revisit and extend unfinished ideas, and leave something to build on with LLMs—for whoever, or whatever, is left to read them.",
+  "profile_url": "https://physics.elte.hu/en/content/istvan-vona.t.10551",
+  "topics": [
+    {
+      "id": "free-fermions",
+      "title": "Free fermions in disguise",
+      "short_title": "Free fermions in disguise",
+      "description": "Free fermions in disguise (FFD) occur in spin chains and quantum circuits whose spectra have a free-fermion structure without a straightforward Jordan–Wigner description. For circuits, changing the order of the same local gates can change whether that structure survives. For spin chains, knowing the spectrum still leaves the problem of expressing local observables in terms of the hidden fermions. The notes here pursue these two directions: classifying gate orderings that admit a transfer-matrix solution, and using graph expansions of the hidden modes to calculate correlations from the boundary into the bulk.",
+      "background": "My work with collaborators provides the starting points: exact real-time dynamics in spin chains and quantum circuits; a model with claws whose transfer-matrix factorization establishes a circuit’s free-fermion structure; and algebraic and induced-path descriptions of hidden modes and conserved charges. These papers develop the methods behind the explorations above.",
+      "papers": [
+        {
+          "id": "ffd-circuit",
+          "directory": "ffd-circuit/",
+          "title": "Forbidden heaps and the spectral solution of free-fermion-in-disguise circuits",
+          "date": "2026-11-10",
+          "status": "Exploratory research note",
+          "description": "The same local gates can produce different spectra when reordered. This manuscript investigates which orderings of open, one-pass palindromic FFD circuits admit the canonical transfer-matrix construction. A local forbidden-pattern criterion leads to a spectral solution from polynomial roots, with an algorithm that avoids building the full many-body matrices. The classification concerns this particular construction; exact computational certificates accompany the derivation.",
+          "pdf": "ffd_letter.pdf",
+          "source": "ffd_letter.tex",
+          "bundle": "ffd_letter_bundle.zip",
+          "model": "GPT-6 Pro (GPT-6 Astra)"
+        },
+        {
+          "id": "ffd-correlators",
+          "directory": "ffd-correlators/",
+          "title": "From edge to bulk in free fermions in disguise",
+          "subtitle": "Explicit density correlators from induced paths",
+          "date": "2026-11-10",
+          "status": "Exploratory research note",
+          "description": "A route from the hidden fermions to local spin dynamics: induced-path expansions give infinite-temperature dynamical correlators between any of the first or last three Hamiltonian terms and every term in the open FFD chain. The resulting formulas require polynomial arithmetic work in system size. Correlations between two generic bulk terms remain outside this construction.",
+          "pdf": "FFD_edge_bulk_letter.pdf",
+          "source": "FFD_edge_bulk_letter.tex",
+          "bundle": "FFD_edge_bulk_bundle.zip",
+          "model": "GPT-6 Pro (GPT-6 Astra)"
+        }
+      ],
+      "references": [
+        {
+          "title": "Solving models with generalized free fermions II: Path-product expansion and conserved charges",
+          "authors": "K. Fukai, B. Pozsgay, I. Vona",
+          "arxiv": "2605.31453"
+        },
+        {
+          "title": "Solving models with generalized free fermions I: Algebras and eigenstates",
+          "authors": "K. Fukai, B. Pozsgay, I. Vona",
+          "arxiv": "2602.03431"
+        },
+        {
+          "title": "A free fermions in disguise model with claws",
+          "authors": "K. Fukai, I. Vona, B. Pozsgay",
+          "arxiv": "2508.05789"
+        },
+        {
+          "title": "Exact real time dynamics with free fermions in disguise",
+          "authors": "I. Vona, M. Mestyán, B. Pozsgay",
+          "arxiv": "2405.20832"
+        }
+      ]
+    },
+    {
+      "id": "resurgence",
+      "title": "Resurgence",
+      "short_title": "Resurgence",
+      "description": "Resurgence relates the large-order growth of perturbative coefficients to exponentially small contributions beyond any power series. In integrable models, exact integral equations let us test those relations and determine the extra data needed to specify a physical solution. My work follows this interplay in O(N) sigma models and the continuum Lieb–Liniger gas. The notes here extend the investigation to a lattice nonlinear Schrödinger model and ask how divergent weak-coupling series, convergent expansions, and non-perturbative sectors can be connected or reconstructed from one another.",
+      "background": "The papers below trace this work from analytic resurgence in O(4) and instanton contributions in O(3) to explicit trans-series for conserved charges in integrable field theories and the continuum Lieb–Liniger model. A recurring issue is which non-perturbative contributions are determined by perturbative large-order behavior, and which require additional input from the exact problem.",
+      "papers": [
+        {
+          "id": "lattice-lieb-liniger",
+          "directory": "lattice-lieb-liniger/",
+          "title": "Beyond leading asymptotics in the lattice nonlinear Schrödinger model",
+          "subtitle": "Trans-series, boundary reconstruction, and spectral determinants",
+          "date": "2026-11-12",
+          "status": "Exploratory research note",
+          "description": "An extension of the trans-series approach to the lattice nonlinear Schrödinger model, where density and energy involve different integral-equation observables from the continuum Lieb–Liniger moments. The manuscript develops exponentially small corrections, reconstructs bulk quantities from boundary data, and studies Fredholm determinants and low-temperature thermodynamics. Formal sector expansions are compared with high-precision numerical solutions; a global Borel-reconstruction theorem remains open.",
+          "pdf": "lattice_lieb_liniger_continuation.pdf",
+          "source": "lattice_lieb_liniger_source.zip",
+          "bundle": "lattice_lieb_liniger_bundle.zip",
+          "model": "GPT-6 Pro (GPT-6 Astra)"
+        },
+        {
+          "id": "coefficient-connections",
+          "directory": "coefficient-connections/",
+          "title": "From factorial divergence to convergent coefficients",
+          "subtitle": "Mellin connections and inverse reconstruction in the Lieb–Liniger model",
+          "date": "2026-11-13",
+          "status": "Exploratory research note",
+          "description": "How can a factorially divergent expansion and a convergent one describe the same function? Starting with Mellin connections for elementary examples, this manuscript develops a conformal coefficient map and a Laguerre inverse transform for the Lieb–Liniger integral equation. A 4,000-coefficient experiment detects five non-perturbative action thresholds. Reconstruction of full sectors is conditional on analytic-continuation assumptions; higher fluctuation coefficients remain numerically unresolved.",
+          "pdf": "coefficient_connections.pdf",
+          "source": "coefficient_connections_source.zip",
+          "bundle": "coefficient_connections_bundle.zip",
+          "model": "GPT-6 Pro (GPT-6 Astra)"
+        }
+      ],
+      "references": [
+        {
+          "title": "The complete trans-series for conserved charges in the Lieb-Liniger model",
+          "authors": "Z. Bajnok, J. Balog, R. Miravitllas, D. le Plat, I. Vona",
+          "arxiv": "2504.05932"
+        },
+        {
+          "title": "The complete trans-series for conserved charges in integrable field theories",
+          "authors": "Z. Bajnok, J. Balog, I. Vona",
+          "arxiv": "2501.16435"
+        },
+        {
+          "title": "Wiener-Hopf solution of the free energy TBA problem and instanton sectors in the O(3) sigma model",
+          "authors": "Z. Bajnok, J. Balog, I. Vona",
+          "arxiv": "2404.07621"
+        },
+        {
+          "title": "The full analytic trans-series in integrable field theories",
+          "authors": "Z. Bajnok, J. Balog, I. Vona",
+          "arxiv": "2212.09416"
+        },
+        {
+          "title": "Running coupling and non-perturbative corrections for O(N) free energy and for disk capacitor",
+          "authors": "Z. Bajnok, J. Balog, Á. Hegedűs, I. Vona",
+          "arxiv": "2204.13365"
+        },
+        {
+          "title": "Instanton effects vs resurgence in the O(3) sigma model",
+          "authors": "Z. Bajnok, J. Balog, Á. Hegedűs, I. Vona",
+          "arxiv": "2112.11741"
+        },
+        {
+          "title": "Analytic resurgence in the O(4) model",
+          "authors": "Z. Bajnok, J. Balog, I. Vona",
+          "arxiv": "2111.15390"
+        }
+      ],
+      "background_reading": [
+        {
+          "title": "Non-perturbative effects in integrable quantum field theories",
+          "url": "https://doi.org/10.15476/ELTE.2025.239",
+          "label": "My PhD thesis · ELTE · 2025",
+          "description": "The broader background for this topic: exact integral equations in integrable quantum field theory, divergent perturbative expansions, and trans-series for non-perturbative effects, with detailed studies of O(N) sigma models."
+        }
+      ]
+    }
+  ]
+}

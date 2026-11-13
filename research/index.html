@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artificial Integrability: shelved lines of pursuit — Istvan Vona</title>
+  <meta name="author" content="Istvan Vona">
+  <meta name="description" content="Istvan Vona’s exploratory research notes in mathematical physics: free fermions in disguise, quantum circuits, and resurgence, with code, related publications, and ideas for future work.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#faf8f3">
+  <link rel="canonical" href="https://istvanvona.github.io/ai/research/">
+  <link rel="alternate" type="application/json" href="catalog.json" title="Research catalog">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Artificial Integrability: shelved lines of pursuit — Istvan Vona">
+  <meta property="og:description" content="Istvan Vona’s exploratory research notes in mathematical physics: free fermions in disguise, quantum circuits, and resurgence, with code, related publications, and ideas for future work.">
+  <meta property="og:url" content="https://istvanvona.github.io/ai/research/">
+  <meta name="twitter:card" content="summary">
+  <style>:root {
+  color-scheme: light;
+  --paper: #faf8f3;
+  --ink: #252c29;
+  --muted: #626b65;
+  --accent: #315c4b;
+  --line: #d8ded4;
+  --wash: #edf0e8;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.65 var(--sans); }
+a { color: var(--accent); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+a:hover { color: #162f25; text-decoration-thickness: 2px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; border-radius: 2px; }
+::selection { background: #d6e5cd; }
+.skip-link { position: absolute; top: -6rem; left: 1rem; padding: .65rem 1rem; background: var(--ink); color: white; z-index: 10; }
+.skip-link:focus { top: 1rem; color: white; }
+.shell { max-width: 1192px; margin: 0 auto; padding: 0 44px; }
+.masthead { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 28px 0 23px; border-bottom: 1px solid var(--line); }
+.wordmark { font-size: 15px; text-decoration: none; color: var(--ink); font-weight: 650; letter-spacing: .01em; }
+.wordmark span { font-weight: 400; color: var(--muted); margin-left: 12px; padding-left: 15px; border-left: 1px solid var(--line); }
+.profile-link { font-size: 13px; }
+.layout { display: grid; grid-template-columns: 198px minmax(0, 1fr); gap: 62px; }
+.contents { align-self: start; position: sticky; top: 38px; padding-top: 58px; }
+.eyebrow { margin: 0 0 15px; color: var(--muted); text-transform: uppercase; letter-spacing: .13em; font-size: 11px; font-weight: 600; }
+.contents ol { list-style: none; padding: 0; margin: 0; }
+.contents li { margin-bottom: 19px; }
+.contents a { display: flex; gap: 11px; font-size: 13px; line-height: 1.5; text-decoration: none; color: var(--ink); }
+.contents a:hover { color: var(--accent); text-decoration: underline; }
+.contents .number { font: 11px/1.85 var(--sans); color: var(--muted); }
+.contents .contents-about { padding-bottom: 19px; margin-bottom: 21px; border-bottom: 1px solid var(--line); }
+.intro { padding: 52px 0 51px; }
+.intro .eyebrow { color: var(--accent); margin-bottom: 8px; }
+h1 { font-family: var(--serif); font-size: clamp(40px, 4.4vw, 60px); font-weight: 400; line-height: 1.17; letter-spacing: -.035em; margin: 0 0 29px; text-wrap: balance; }
+.title-main, .title-expansion { display: block; }
+.title-expansion { margin-top: .24em; font-size: .65em; letter-spacing: -.02em; }
+.title-word { white-space: nowrap; }
+.title-initial { color: var(--accent); font-weight: 700; }
+.intro-copy { max-width: 740px; font-family: var(--serif); font-size: 21px; line-height: 1.65; }
+.intro-copy p { margin: 0 0 19px; }
+.intro-copy p:last-child { margin-bottom: 0; }
+.collection-meta { display: flex; flex-wrap: wrap; gap: 12px 25px; padding-top: 25px; font-size: 12px; color: var(--muted); }
+.collection-meta span:first-child { color: var(--accent); }
+.topic { border-top: 1px solid var(--ink); padding: 31px 0 50px; }
+.topic-label { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 14px; }
+.topic-label .eyebrow { margin: 0; }
+.topic-count { font-size: 11px; color: var(--muted); }
+h2 { font: 400 clamp(29px, 3.2vw, 38px)/1.18 var(--serif); letter-spacing: -.025em; max-width: 720px; margin: 0 0 21px; text-wrap: balance; }
+.topic-description { color: #4e5952; font-size: 15px; line-height: 1.8; margin: 0 0 29px; max-width: 730px; }
+.paper { padding: 25px 0 27px; border-top: 1px solid var(--line); }
+.paper-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px 15px; font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.paper-status { font-size: 10px; letter-spacing: .055em; text-transform: uppercase; color: var(--accent); }
+h3 { font: 400 25px/1.3 var(--serif); letter-spacing: -.012em; margin: 0; max-width: 700px; text-wrap: pretty; }
+h3 a { color: var(--ink); text-decoration: none; }
+h3 a:hover { text-decoration: underline; }
+.paper-subtitle { font: italic 17px/1.55 var(--serif); color: var(--muted); margin: 8px 0 0; }
+.paper-description { font-size: 14px; line-height: 1.8; margin: 13px 0 0; color: #4e5952; max-width: 710px; }
+.paper-links { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 23px; margin-top: 17px; font-size: 12px; }
+.paper-links a { display: inline-flex; align-items: center; min-height: 35px; }
+.paper-links .read-link { font-weight: 650; text-decoration: none; gap: 7px; }
+.paper-links .read-link:hover { text-decoration: underline; }
+.bibliography { background: var(--wash); margin-top: 4px; padding: 0 23px; border-radius: 3px; }
+.background-reading { margin: 4px 0 23px; padding: 18px 21px; border-left: 3px solid var(--accent); background: var(--wash); }
+.background-reading .eyebrow { margin: 0 0 9px; font-size: 10px; }
+.background-reading > a { font: 19px/1.4 var(--serif); }
+.background-reading > p:last-child { margin: 9px 0 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
+.bibliography summary { cursor: pointer; padding: 18px 0; font-size: 13px; font-weight: 600; }
+.bibliography summary::marker { color: var(--accent); }
+.bibliography summary .reference-count { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 8px; white-space: nowrap; }
+.bibliography-intro { font-size: 13px; line-height: 1.7; color: #536056; margin: 0 0 19px; }
+.references { list-style: none; padding: 0; margin: 0; }
+.references li { padding: 13px 0 15px; border-top: 1px solid #d5ddcf; }
+.references li > a { display: inline-block; font: 17px/1.4 var(--serif); text-decoration: none; color: #293c30; }
+.references li > a:hover { text-decoration: underline; }
+.reference-meta { display: flex; flex-wrap: wrap; gap: 3px 13px; font-size: 11px; color: #5b665d; margin-top: 6px; }
+.reference-meta a { color: #506953; white-space: nowrap; }
+.footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 2rem; border-top: 1px solid var(--line); padding: 24px 0 33px; color: var(--muted); font-size: 12px; }
+.footer p { margin: 0; }
+.footer-links { display: flex; gap: 24px; }
+@media (min-width: 1350px) { .shell { padding-inline: 24px; } .layout { gap: 78px; } }
+@media (max-width: 850px) {
+  .shell { padding: 0 28px; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .contents { position: static; padding-top: 22px; }
+  .contents > .eyebrow { display: none; }
+  .contents ol { display: flex; flex-wrap: wrap; gap: 12px 25px; }
+  .contents li, .contents .contents-about { margin: 0; padding: 0; border: 0; }
+  .contents .number { display: none; }
+  .contents a { font-size: 12px; }
+  .intro { padding-top: 40px; }
+  h1 { font-size: clamp(40px, 7vw, 58px); }
+}
+@media (max-width: 480px) {
+  .shell { padding-inline: 20px; }
+  .masthead { padding-top: 21px; }
+  .wordmark { font-size: 14px; }
+  .wordmark span { margin-left: 8px; padding-left: 10px; }
+  .profile-link { font-size: 11px; }
+  .contents ol { gap: 9px 18px; }
+  .intro { padding: 34px 0 37px; }
+  h1 { font-size: 44px; }
+  .intro-copy { font-size: 19px; }
+  h2 { font-size: 30px; }
+  h3 { font-size: 23px; }
+  .topic-label { gap: .5rem; }
+  .topic-count { font-size: 10px; }
+  .paper-links { gap: 5px 18px; }
+  .bibliography { padding-inline: 17px; }
+  .bibliography summary .reference-count { margin-left: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print {
+  body { background: white; font-size: 11pt; }
+  .shell { padding: 0; }
+  .layout { display: block; }
+  .contents, .skip-link, .profile-link, .footer-links { display: none; }
+  .intro { padding-block: 24px; }
+  h1 { font-size: 42pt; }
+  .intro-copy, .intro-copy p:last-child { font-size: 12pt; }
+  .topic { padding-bottom: 25px; }
+  .paper, .references li { break-inside: avoid; }
+  .bibliography { background: transparent; padding: 0; }
+}
+</style>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://istvanvona.github.io/ai/research/",
+  "url": "https://istvanvona.github.io/ai/research/",
+  "name": "Artificial Integrability: shelved lines of pursuit — Istvan Vona",
+  "description": "Istvan Vona’s exploratory research notes in mathematical physics: free fermions in disguise, quantum circuits, and resurgence, with code, related publications, and ideas for future work.",
+  "inLanguage": "en",
+  "dateModified": "2026-11-13",
+  "author": {
+    "@type": "Person",
+    "name": "Istvan Vona",
+    "sameAs": "https://physics.elte.hu/en/content/istvan-vona.t.10551"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Forbidden heaps and the spectral solution of free-fermion-in-disguise circuits",
+          "url": "https://istvanvona.github.io/ai/ffd-circuit/",
+          "dateCreated": "2026-11-10",
+          "description": "The same local gates can produce different spectra when reordered. This manuscript investigates which orderings of open, one-pass palindromic FFD circuits admit the canonical transfer-matrix construction. A local forbidden-pattern criterion leads to a spectral solution from polynomial roots, with an algorithm that avoids building the full many-body matrices. The classification concerns this particular construction; exact computational certificates accompany the derivation.",
+          "creativeWorkStatus": "Exploratory research note",
+          "author": {
+            "@type": "Person",
+            "name": "Istvan Vona"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "From edge to bulk in free fermions in disguise",
+          "url": "https://istvanvona.github.io/ai/ffd-correlators/",
+          "dateCreated": "2026-11-10",
+          "description": "A route from the hidden fermions to local spin dynamics: induced-path expansions give infinite-temperature dynamical correlators between any of the first or last three Hamiltonian terms and every term in the open FFD chain. The resulting formulas require polynomial arithmetic work in system size. Correlations between two generic bulk terms remain outside this construction.",
+          "creativeWorkStatus": "Exploratory research note",
+          "author": {
+            "@type": "Person",
+            "name": "Istvan Vona"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "Beyond leading asymptotics in the lattice nonlinear Schrödinger model",
+          "url": "https://istvanvona.github.io/ai/lattice-lieb-liniger/",
+          "dateCreated": "2026-11-12",
+          "description": "An extension of the trans-series approach to the lattice nonlinear Schrödinger model, where density and energy involve different integral-equation observables from the continuum Lieb–Liniger moments. The manuscript develops exponentially small corrections, reconstructs bulk quantities from boundary data, and studies Fredholm determinants and low-temperature thermodynamics. Formal sector expansions are compared with high-precision numerical solutions; a global Borel-reconstruction theorem remains open.",
+          "creativeWorkStatus": "Exploratory research note",
+          "author": {
+            "@type": "Person",
+            "name": "Istvan Vona"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "CreativeWork",
+          "name": "From factorial divergence to convergent coefficients",
+          "url": "https://istvanvona.github.io/ai/coefficient-connections/",
+          "dateCreated": "2026-11-13",
+          "description": "How can a factorially divergent expansion and a convergent one describe the same function? Starting with Mellin connections for elementary examples, this manuscript develops a conformal coefficient map and a Laguerre inverse transform for the Lieb–Liniger integral equation. A 4,000-coefficient experiment detects five non-perturbative action thresholds. Reconstruction of full sectors is conditional on analytic-continuation assumptions; higher fluctuation coefficients remain numerically unresolved.",
+          "creativeWorkStatus": "Exploratory research note",
+          "author": {
+            "@type": "Person",
+            "name": "Istvan Vona"
+          }
+        }
+      }
+    ]
+  }
+}</script>
+</head>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+  <header class="masthead">
+    <a class="wordmark" href="#top">Istvan Vona<span>Research</span></a>
+    <a class="profile-link" href="https://physics.elte.hu/en/content/istvan-vona.t.10551">ELTE profile <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="layout">
+    <nav class="contents" aria-label="On this page">
+      <p class="eyebrow">In this collection</p>
+      <ol>
+        <li class="contents-about"><a href="#about">About this collection</a></li>
+        <li><a href="#free-fermions"><span class="number" aria-hidden="true">01</span>Free fermions in disguise</a></li>
+<li><a href="#resurgence"><span class="number" aria-hidden="true">02</span>Resurgence</a></li>
+      </ol>
+    </nav>
+    <main id="main">
+      <section class="intro" id="about" aria-labelledby="page-title">
+        <p class="eyebrow">Notes, calculations, and open directions</p>
+        <h1 id="page-title"><span class="title-main"><span class="title-word"><span class="title-initial">A</span>rtificial</span> <span class="title-word"><span class="title-initial">I</span>ntegrability</span>:</span> <span class="title-expansion"><span class="title-word"><span class="title-initial">s</span>helved</span> <span class="title-word"><span class="title-initial">l</span>ines</span> <span class="title-word"><span class="title-initial">o</span>f</span> <span class="title-word"><span class="title-initial">p</span>ursuit</span></span></h1>
+        <div class="intro-copy"><p>Here I collect exploratory research notes in mathematical physics, developed with LLMs around ideas about where to look and what to connect. These projects represent substantial computational effort, but I have not had the capacity to revise them and understand every result in depth. Even if correct, some may be too small or preliminary to justify a standalone paper—especially now that generating papers is the easy part. These notes preserve ideas and computational material for further investigation; their mathematical claims have not been independently checked and should be treated as unverified. I hope these notes will help me revisit and extend unfinished ideas, and leave something to build on with LLMs—for whoever, or whatever, is left to read them.</p></div>
+        <div class="collection-meta"><span>4 exploratory research notes · 2 topics</span></div>
+      </section>
+      <section class="topic" id="free-fermions" aria-labelledby="free-fermions-title">
+  <div class="topic-label"><p class="eyebrow">Topic 01</p>
+    <span class="topic-count">2 exploratory research notes</span></div>
+  <h2 id="free-fermions-title">Free fermions in disguise</h2>
+  <p class="topic-description">Free fermions in disguise (FFD) occur in spin chains and quantum circuits whose spectra have a free-fermion structure without a straightforward Jordan–Wigner description. For circuits, changing the order of the same local gates can change whether that structure survives. For spin chains, knowing the spectrum still leaves the problem of expressing local observables in terms of the hidden fermions. The notes here pursue these two directions: classifying gate orderings that admit a transfer-matrix solution, and using graph expansions of the hidden modes to calculate correlations from the boundary into the bulk.</p>
+  <article class="paper" id="ffd-circuit" aria-labelledby="ffd-circuit-title">
+  <div class="paper-meta"><span class="paper-status">Exploratory research note</span>
+    <time datetime="2026-11-10">10 November 2026</time><span class="paper-model">Model: GPT-6 Pro (GPT-6 Astra)</span></div>
+  <h3 id="ffd-circuit-title"><a href="https://istvanvona.github.io/ai/ffd-circuit/">Forbidden heaps and the spectral solution of free-fermion-in-disguise circuits</a></h3>
+  
+  <p class="paper-description">The same local gates can produce different spectra when reordered. This manuscript investigates which orderings of open, one-pass palindromic FFD circuits admit the canonical transfer-matrix construction. A local forbidden-pattern criterion leads to a spectral solution from polynomial roots, with an algorithm that avoids building the full many-body matrices. The classification concerns this particular construction; exact computational certificates accompany the derivation.</p>
+  <div class="paper-links" role="group" aria-label="Files for Forbidden heaps and the spectral solution of free-fermion-in-disguise circuits"><a class="read-link" href="https://istvanvona.github.io/ai/ffd-circuit/">Read HTML <span aria-hidden="true">↗</span></a><a href="https://istvanvona.github.io/ai/ffd-circuit/ffd_letter.pdf">PDF</a><a href="https://istvanvona.github.io/ai/ffd-circuit/ffd_letter.tex">Source</a><a href="https://istvanvona.github.io/ai/ffd-circuit/ffd_letter_bundle.zip">Note + code</a></div>
+</article>
+<article class="paper" id="ffd-correlators" aria-labelledby="ffd-correlators-title">
+  <div class="paper-meta"><span class="paper-status">Exploratory research note</span>
+    <time datetime="2026-11-10">10 November 2026</time><span class="paper-model">Model: GPT-6 Pro (GPT-6 Astra)</span></div>
+  <h3 id="ffd-correlators-title"><a href="https://istvanvona.github.io/ai/ffd-correlators/">From edge to bulk in free fermions in disguise</a></h3>
+  <p class="paper-subtitle">Explicit density correlators from induced paths</p>
+  <p class="paper-description">A route from the hidden fermions to local spin dynamics: induced-path expansions give infinite-temperature dynamical correlators between any of the first or last three Hamiltonian terms and every term in the open FFD chain. The resulting formulas require polynomial arithmetic work in system size. Correlations between two generic bulk terms remain outside this construction.</p>
+  <div class="paper-links" role="group" aria-label="Files for From edge to bulk in free fermions in disguise"><a class="read-link" href="https://istvanvona.github.io/ai/ffd-correlators/">Read HTML <span aria-hidden="true">↗</span></a><a href="https://istvanvona.github.io/ai/ffd-correlators/FFD_edge_bulk_letter.pdf">PDF</a><a href="https://istvanvona.github.io/ai/ffd-correlators/FFD_edge_bulk_letter.tex">Source</a><a href="https://istvanvona.github.io/ai/ffd-correlators/FFD_edge_bulk_bundle.zip">Note + code</a></div>
+</article>
+  
+  <details class="bibliography" open>
+    <summary>My related work on arXiv <span class="reference-count">4 papers</span></summary>
+    <p class="bibliography-intro">My work with collaborators provides the starting points: exact real-time dynamics in spin chains and quantum circuits; a model with claws whose transfer-matrix factorization establishes a circuit’s free-fermion structure; and algebraic and induced-path descriptions of hidden modes and conserved charges. These papers develop the methods behind the explorations above.</p>
+    <ul class="references"><li><a href="https://arxiv.org/abs/2605.31453">Solving models with generalized free fermions II: Path-product expansion and conserved charges</a>
+  <div class="reference-meta"><span>K. Fukai, B. Pozsgay, I. Vona</span>
+    <a href="https://arxiv.org/abs/2605.31453">arXiv:2605.31453</a></div></li>
+<li><a href="https://arxiv.org/abs/2602.03431">Solving models with generalized free fermions I: Algebras and eigenstates</a>
+  <div class="reference-meta"><span>K. Fukai, B. Pozsgay, I. Vona</span>
+    <a href="https://arxiv.org/abs/2602.03431">arXiv:2602.03431</a></div></li>
+<li><a href="https://arxiv.org/abs/2508.05789">A free fermions in disguise model with claws</a>
+  <div class="reference-meta"><span>K. Fukai, I. Vona, B. Pozsgay</span>
+    <a href="https://arxiv.org/abs/2508.05789">arXiv:2508.05789</a></div></li>
+<li><a href="https://arxiv.org/abs/2405.20832">Exact real time dynamics with free fermions in disguise</a>
+  <div class="reference-meta"><span>I. Vona, M. Mestyán, B. Pozsgay</span>
+    <a href="https://arxiv.org/abs/2405.20832">arXiv:2405.20832</a></div></li></ul>
+  </details>
+</section>
+<section class="topic" id="resurgence" aria-labelledby="resurgence-title">
+  <div class="topic-label"><p class="eyebrow">Topic 02</p>
+    <span class="topic-count">2 exploratory research notes</span></div>
+  <h2 id="resurgence-title">Resurgence</h2>
+  <p class="topic-description">Resurgence relates the large-order growth of perturbative coefficients to exponentially small contributions beyond any power series. In integrable models, exact integral equations let us test those relations and determine the extra data needed to specify a physical solution. My work follows this interplay in O(N) sigma models and the continuum Lieb–Liniger gas. The notes here extend the investigation to a lattice nonlinear Schrödinger model and ask how divergent weak-coupling series, convergent expansions, and non-perturbative sectors can be connected or reconstructed from one another.</p>
+  <article class="paper" id="lattice-lieb-liniger" aria-labelledby="lattice-lieb-liniger-title">
+  <div class="paper-meta"><span class="paper-status">Exploratory research note</span>
+    <time datetime="2026-11-12">12 November 2026</time><span class="paper-model">Model: GPT-6 Pro (GPT-6 Astra)</span></div>
+  <h3 id="lattice-lieb-liniger-title"><a href="https://istvanvona.github.io/ai/lattice-lieb-liniger/">Beyond leading asymptotics in the lattice nonlinear Schrödinger model</a></h3>
+  <p class="paper-subtitle">Trans-series, boundary reconstruction, and spectral determinants</p>
+  <p class="paper-description">An extension of the trans-series approach to the lattice nonlinear Schrödinger model, where density and energy involve different integral-equation observables from the continuum Lieb–Liniger moments. The manuscript develops exponentially small corrections, reconstructs bulk quantities from boundary data, and studies Fredholm determinants and low-temperature thermodynamics. Formal sector expansions are compared with high-precision numerical solutions; a global Borel-reconstruction theorem remains open.</p>
+  <div class="paper-links" role="group" aria-label="Files for Beyond leading asymptotics in the lattice nonlinear Schrödinger model"><a class="read-link" href="https://istvanvona.github.io/ai/lattice-lieb-liniger/">Read HTML <span aria-hidden="true">↗</span></a><a href="https://istvanvona.github.io/ai/lattice-lieb-liniger/lattice_lieb_liniger_continuation.pdf">PDF</a><a href="https://istvanvona.github.io/ai/lattice-lieb-liniger/lattice_lieb_liniger_source.zip">Source</a><a href="https://istvanvona.github.io/ai/lattice-lieb-liniger/lattice_lieb_liniger_bundle.zip">Note + code</a></div>
+</article>
+<article class="paper" id="coefficient-connections" aria-labelledby="coefficient-connections-title">
+  <div class="paper-meta"><span class="paper-status">Exploratory research note</span>
+    <time datetime="2026-11-13">13 November 2026</time><span class="paper-model">Model: GPT-6 Pro (GPT-6 Astra)</span></div>
+  <h3 id="coefficient-connections-title"><a href="https://istvanvona.github.io/ai/coefficient-connections/">From factorial divergence to convergent coefficients</a></h3>
+  <p class="paper-subtitle">Mellin connections and inverse reconstruction in the Lieb–Liniger model</p>
+  <p class="paper-description">How can a factorially divergent expansion and a convergent one describe the same function? Starting with Mellin connections for elementary examples, this manuscript develops a conformal coefficient map and a Laguerre inverse transform for the Lieb–Liniger integral equation. A 4,000-coefficient experiment detects five non-perturbative action thresholds. Reconstruction of full sectors is conditional on analytic-continuation assumptions; higher fluctuation coefficients remain numerically unresolved.</p>
+  <div class="paper-links" role="group" aria-label="Files for From factorial divergence to convergent coefficients"><a class="read-link" href="https://istvanvona.github.io/ai/coefficient-connections/">Read HTML <span aria-hidden="true">↗</span></a><a href="https://istvanvona.github.io/ai/coefficient-connections/coefficient_connections.pdf">PDF</a><a href="https://istvanvona.github.io/ai/coefficient-connections/coefficient_connections_source.zip">Source</a><a href="https://istvanvona.github.io/ai/coefficient-connections/coefficient_connections_bundle.zip">Note + code</a></div>
+</article>
+  <aside class="background-reading"><p class="eyebrow">My PhD thesis · ELTE · 2025</p><a href="https://doi.org/10.15476/ELTE.2025.239">Non-perturbative effects in integrable quantum field theories</a><p>The broader background for this topic: exact integral equations in integrable quantum field theory, divergent perturbative expansions, and trans-series for non-perturbative effects, with detailed studies of O(N) sigma models.</p></aside>
+  <details class="bibliography" open>
+    <summary>My related work on arXiv <span class="reference-count">7 papers</span></summary>
+    <p class="bibliography-intro">The papers below trace this work from analytic resurgence in O(4) and instanton contributions in O(3) to explicit trans-series for conserved charges in integrable field theories and the continuum Lieb–Liniger model. A recurring issue is which non-perturbative contributions are determined by perturbative large-order behavior, and which require additional input from the exact problem.</p>
+    <ul class="references"><li><a href="https://arxiv.org/abs/2504.05932">The complete trans-series for conserved charges in the Lieb-Liniger model</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, R. Miravitllas, D. le Plat, I. Vona</span>
+    <a href="https://arxiv.org/abs/2504.05932">arXiv:2504.05932</a></div></li>
+<li><a href="https://arxiv.org/abs/2501.16435">The complete trans-series for conserved charges in integrable field theories</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, I. Vona</span>
+    <a href="https://arxiv.org/abs/2501.16435">arXiv:2501.16435</a></div></li>
+<li><a href="https://arxiv.org/abs/2404.07621">Wiener-Hopf solution of the free energy TBA problem and instanton sectors in the O(3) sigma model</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, I. Vona</span>
+    <a href="https://arxiv.org/abs/2404.07621">arXiv:2404.07621</a></div></li>
+<li><a href="https://arxiv.org/abs/2212.09416">The full analytic trans-series in integrable field theories</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, I. Vona</span>
+    <a href="https://arxiv.org/abs/2212.09416">arXiv:2212.09416</a></div></li>
+<li><a href="https://arxiv.org/abs/2204.13365">Running coupling and non-perturbative corrections for O(N) free energy and for disk capacitor</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, Á. Hegedűs, I. Vona</span>
+    <a href="https://arxiv.org/abs/2204.13365">arXiv:2204.13365</a></div></li>
+<li><a href="https://arxiv.org/abs/2112.11741">Instanton effects vs resurgence in the O(3) sigma model</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, Á. Hegedűs, I. Vona</span>
+    <a href="https://arxiv.org/abs/2112.11741">arXiv:2112.11741</a></div></li>
+<li><a href="https://arxiv.org/abs/2111.15390">Analytic resurgence in the O(4) model</a>
+  <div class="reference-meta"><span>Z. Bajnok, J. Balog, I. Vona</span>
+    <a href="https://arxiv.org/abs/2111.15390">arXiv:2111.15390</a></div></li></ul>
+  </details>
+</section>
+    </main>
+  </div>
+  <footer class="footer">
+    <p>Istvan Vona · Updated <time datetime="2026-11-13">13 November 2026</time></p>
+    <div class="footer-links"><a href="catalog.json">Catalog (JSON)</a><a href="#top">Back to top ↑</a></div>
+  </footer>
+</div>
+</body>
+</html>
